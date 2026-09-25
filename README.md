@@ -168,9 +168,16 @@ POST /api/system/collect               触发采集
 
 ```bash
 cd backend
-pip install pytest
+pip install -r requirements.txt      # 含 pytest / pytest-timeout / httpx
 pytest tests/ -v
 ```
+
+27 个用例，覆盖技术指标数值正确性（SMA 与手算均值一致、EMA 灵敏度、布林带三轨
+次序、KDJ/RSI 值域、ATR 恒正）、`calc_all()` 输出完整性、信号检测结构，
+以及筛选器财务条件是否真的在过滤（对自带演示库跑集成测试）。
+
+> MACD 柱采用 A 股口径 `2 × (DIF − DEA)`（通达信/同花顺画法），
+> 与 TradingView 的 `DIF − DEA` 不同，测试中已注明。
 
 ---
 

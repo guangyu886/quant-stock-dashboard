@@ -417,10 +417,14 @@ class TechnicalAnalyzer:
 
         momentum = close.rolling(window=20).apply(linear_reg, raw=True)
 
+        # 只导出 squeeze 自己的结果。
+        # bb_upper/bb_lower 是判断压缩用的中间量，不导出：
+        # bollinger_bands() 已经产出同名的 BB_UPPER/BB_LOWER，
+        # 一起 concat 会产生重复列名，使 df['BB_UPPER'] 变成 DataFrame 而非 Series，
+        # 进而让 detect_signals() 里的 float(latest['BB_UPPER']) 抛 TypeError。
         return pd.DataFrame({
             'SQZ_ON': squeeze_on.astype(int),      # 1=压缩中, 0=释放
             'SQZ_MOM': momentum,                    # 动量值（正=多头，负=空头）
-            'BB_UPPER': bb_upper, 'BB_LOWER': bb_lower,
             'KC_UPPER': kc_upper, 'KC_LOWER': kc_lower,
         }, index=close.index)
 
