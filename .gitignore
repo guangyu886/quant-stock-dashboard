@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+*.log
+npm-debug.log*
+
+# 环境变量（不要提交任何密钥）
+.env
+.env.*
+!.env.example
+
+# 日志
+logs/*
+!logs/.gitkeep
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 运行时产物
+*.bak
+*.tmp
